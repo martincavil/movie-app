@@ -7,7 +7,31 @@ body {
   color: white;
 }
 
-.movies {
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+nav h1{
+  margin: 0;
+}
+
+nav input {
+  background-color: transparent;
+  border: 1px solid #9B287B;
+  border-radius: 8px;
+  padding: 0.25rem;
+
+}
+nav input:focus {
+  color: white;
+  font-family: 700;
+  outline: none;
+}
+
+main {
   display: flex;
   align-items: center;
   justify-content: space-between;

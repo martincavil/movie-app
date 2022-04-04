@@ -2,18 +2,29 @@
 const APIURL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1';
 // Create a const with relative path of poster
 const IMGPATH = 'https://image.tmdb.org/t/p/w1280';
+const SEARCHAPI = 'https://api.themoviedb.org/3/search/movie?&api_key=04c35731a5ee918f014970082a0088b1&query=';
 
-const movies = document.querySelector('.movies');
 
-// Create a function getMovie to get all information about movies
-async function getmovies() {
-  const resp = await fetch(APIURL);
+const main = document.querySelector('main');
+const form = document.querySelector('form');
+const search = document.querySelector("#search");
+
+// Get all movies
+getMovies(APIURL);
+
+// Create a function getMovie to get all informations about movies
+async function getMovies(url) {
+  const resp = await fetch(url);
   const respData = await resp.json();
 
-  // Display the results of API movies
-  console.log(respData);
+  showMovies(respData.results);
+}
+function showMovies(movies) {
+  // Clear main
+  main.innerHTML = "";
 
-  respData.results.forEach(movie => {
+  // Movies Iteration
+  movies.forEach(movie => {
     const { poster_path, title, vote_average } = movie
     const movieElement = document.createElement('div');
     movieElement.classList.add('movie');
@@ -30,12 +41,11 @@ async function getmovies() {
       <span class="${getColorByRate(vote_average)}">${vote_average}</span>
     </div>`
 
-   movies.appendChild(movieElement);
+   main.appendChild(movieElement);
   });
 
-  return respData;
-
 }
+
 
 // Create a function to add some color to vote average
  function getColorByRate(vote) {
@@ -44,8 +54,17 @@ async function getmovies() {
    } else if (vote >= 5) {
      return 'orange';
    } else {
-     return 'red'
+     return 'red';
    }
  }
 
-getmovies();
+// Create a function to get movies by search
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const searchChar = search.value;
+
+  if (searchChar) {
+    getMovies(SEARCHAPI + searchChar);
+    search.value = "";
+  }
+});
