@@ -3,6 +3,8 @@ const APIURL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.d
 // Create a const with relative path of poster
 const IMGPATH = 'https://image.tmdb.org/t/p/w1280';
 
+const movies = document.querySelector('.movies');
+
 // Create a function getMovie to get all information about movies
 async function getmovies() {
   const resp = await fetch(APIURL);
@@ -11,16 +13,39 @@ async function getmovies() {
   // Display the results of API movies
   console.log(respData);
 
-  // Create an interation to play with each movie
   respData.results.forEach(movie => {
-    const imgPoster = document.createElement('img'); // Add an element <img>
-    imgPoster.src = IMGPATH + movie.poster_path; // Add the path of each movie to element <img>
+    const { poster_path, title, vote_average } = movie
+    const movieElement = document.createElement('div');
+    movieElement.classList.add('movie');
 
-    document.body.appendChild(imgPoster) // Display each movie poster
-  })
+    movieElement.innerHTML = `
+    <div class="movie-img">
+      <img
+      src="${IMGPATH + poster_path}"
+      alt=""
+      >
+    </div>
+    <div class="movie-desc">
+      <h3>${title}</h3>
+      <span class="${getColorByRate(vote_average)}">${vote_average}</span>
+    </div>`
+
+   movies.appendChild(movieElement);
+  });
 
   return respData;
 
 }
+
+// Create a function to add some color to vote average
+ function getColorByRate(vote) {
+   if (vote >= 7.5) {
+     return 'green';
+   } else if (vote >= 5) {
+     return 'orange';
+   } else {
+     return 'red'
+   }
+ }
 
 getmovies();
