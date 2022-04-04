@@ -35,9 +35,9 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-
+  flex-flow: wrap;
 }
+
 
 .movie{
   width: 200px;
@@ -45,8 +45,7 @@ main {
   background-color: #402039;
   border-radius: 4px;
   box-shadow: 0 2px 2px #402039;
-  margin: 1rem ;
-
+  margin: 1rem;
 }
 
 .movie-img {
