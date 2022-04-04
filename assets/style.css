@@ -89,3 +89,19 @@ main {
 .movie-desc span.red{
   color: rgb(221, 9, 9);
 }
+
+/* Media queries */
+
+@media(max-width: 992px) {
+
+}
+
+@media(max-width: 768px) {
+
+}
+
+@media(max-width: 480px) {
+  .movie {
+    margin: 0.5rem auto;
+  }
+}
