@@ -1,2 +1,2 @@
 # movie-app
-Javascript challenge to improve my skills
+Javascript challenge (with API) to improve my skills.
